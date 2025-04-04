@@ -33,5 +33,5 @@ if ! [ -f toxprot.dmnd ]; then
     --outfmt 6 \
     -p ${THREADS}
 else
-  echo "Found diamond database. Skipping diamond exercution..."
+  echo "Found diamond database. Skipping diamond execution..."
 fi
