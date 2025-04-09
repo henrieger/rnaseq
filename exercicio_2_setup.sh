@@ -1,9 +1,10 @@
 #!/bin/bash
 
 AVALIACAO=$HOME/avaliacao
+BASE_DIR=$AVALIACAO/exercicio_2
 MUSCLE_ID=SRR6262201
 SKIN_ID=SRR7591066
-OUTPUT_DIR=$AVALIACAO/outputs
+OUTPUT_DIR=$BASE_DIR/outputs
 
 # Create output directory if doesn't exist
 mkdir -p ${OUTPUT_DIR}
