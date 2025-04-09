@@ -19,13 +19,13 @@ fi
 
 # Execute FastQC analysis for original files
 if ! [ -f ${OUTPUT_DIR}/${MUSCLE_ID}_fastqc.html ]; then
-  ln -s ${AVALIACAO}/${MUSCLE_ID}.fastq.gz ${MUSCLE_ID}.fastq.gz
-  ln -s ${AVALIACAO}/${SKIN_ID}.fastq.gz ${SKIN_ID}.fastq.gz
+  ln -s ${AVALIACAO}/${MUSCLE_ID}.fastq.gz ${BASE_DIR}/${MUSCLE_ID}.fastq.gz
+  ln -s ${AVALIACAO}/${SKIN_ID}.fastq.gz ${BASE_DIR}/${SKIN_ID}.fastq.gz
   fastqc \
     -t 2 \
     --outdir=${OUTPUT_DIR} \
-    ${AVALIACAO}/${MUSCLE_ID}.fastq.gz \
-    ${AVALIACAO}/${SKIN_ID}.fastq.gz
+    ${BASE_DIR}/${MUSCLE_ID}.fastq.gz \
+    ${BASE_DIR}/${SKIN_ID}.fastq.gz
 else
   echo "Found FastQC result for first analysis. Skipping first FastQC..."
 fi
@@ -33,13 +33,13 @@ fi
 # Trimm both muscle and skin FastQ files
 if ! [ -f ${MUSCLE_ID}.trimmed.fastq.gz ]; then
   fastp \
-    -i ${MUSCLE_ID}.fastq.gz \
-    -o ${MUSCLE_ID}.trimmed.fastq.gz \
+    -i ${BASE_DIR}/${MUSCLE_ID}.fastq.gz \
+    -o ${BASE_DIR}/${MUSCLE_ID}.trimmed.fastq.gz \
     -h ${OUTPUT_DIR}/fastp_${MUSCLE_ID}_report.html \
     -j ${OUTPUT_DIR}/fastp_${MUSCLE_ID}_report.json
   fastp \
-    -i ${SKIN_ID}.fastq.gz \
-    -o ${SKIN_ID}.trimmed.fastq.gz \
+    -i ${BASE_DIR}/${SKIN_ID}.fastq.gz \
+    -o ${BASE_DIR}/${SKIN_ID}.trimmed.fastq.gz \
     -h ${OUTPUT_DIR}/fastp_${SKIN_ID}_report.html \
     -j ${OUTPUT_DIR}/fastp_${SKIN_ID}_report.json
 else
@@ -51,8 +51,8 @@ if ! [ -f ${OUTPUT_DIR}/${MUSCLE_ID}.trimmed_fastqc.html ]; then
   fastqc \
     -t 2 \
     --outdir=${OUTPUT_DIR} \
-    ${MUSCLE_ID}.trimmed.fastq.gz \
-    ${SKIN_ID}.trimmed.fastq.gz
+    ${BASE_DIR}/${MUSCLE_ID}.trimmed.fastq.gz \
+    ${BASE_DIR}/${SKIN_ID}.trimmed.fastq.gz
 else
   echo "Found FastQC result for second analysis. Skipping second FastQC..."
 fi
